@@ -1,6 +1,6 @@
 # ActuatorBundle
 
-![logo](docs/logo.png)
+<img src="https://github.com/SymSensor/ActuatorBundle/blob/main/docs/logo.png?raw=true" align="right" width="250"/>
 
 ## Installation
 
