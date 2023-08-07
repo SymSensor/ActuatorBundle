@@ -1,0 +1,37 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  SymSensor\ActuatorBundle\Controller\:
+    resource: '../src/Controller'
+    tags: [ 'controller.service_arguments' ]
+
+  SymSensor\ActuatorBundle\Service\Health\Indicator\DiskSpace:
+    tags: ['sym_sensor_actuator.health_indicator']
+    arguments:
+      - "%kernel.project_dir%"
+      - 52428800
+
+  SymSensor\ActuatorBundle\Service\Health\HealthIndicatorStack:
+    arguments:
+      - !tagged_iterator sym_sensor_actuator.health_indicator
+
+  SymSensor\ActuatorBundle\Service\Info\Collector\Php: 
+    tags: ['sym_sensor_actuator.info_collector']
+
+  SymSensor\ActuatorBundle\Service\Info\Collector\Symfony: 
+    tags: ['sym_sensor_actuator.info_collector']
+
+  SymSensor\ActuatorBundle\Service\Info\Collector\Git: 
+    tags: ['sym_sensor_actuator.info_collector']
+
+  SymSensor\ActuatorBundle\Service\Info\InfoCollectorStack:
+    arguments:
+      - !tagged_iterator sym_sensor_actuator.info_collector
+
+when@test:
+  services:
+    SymSensor\ActuatorBundle\Service\Health\HealthIndicatorStack:
+      arguments:
+        - {  }

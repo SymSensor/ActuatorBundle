@@ -1,0 +1,9 @@
+sym_sensor_actuator_health:
+  path: '/health'
+  controller: SymSensor\ActuatorBundle\Controller\HealthController::health
+  methods: ['GET']
+
+sym_sensor_actuator_info:
+  path: '/info'
+  controller: SymSensor\ActuatorBundle\Controller\InfoController::info
+  methods: ['GET']
