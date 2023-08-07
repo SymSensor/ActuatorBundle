@@ -16,7 +16,7 @@ Open a command console, enter your project directory and execute:
 $ composer require symsensor/actuator-bundle
 ```
 
-### Applications that don't use Symfony Flex
+### Applications that don't use Symfony Flex
 
 #### Step 1: Download the Bundle
 
