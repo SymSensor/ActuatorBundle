@@ -15,6 +15,7 @@ namespace SymSensor\ActuatorBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\AbstractExtension;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use SymSensor\ActuatorBundle\Service\Health\Indicator\DiskSpace;
@@ -34,9 +35,10 @@ final class SymSensorActuatorExtension extends Extension
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
+        
         $this->processHealthConfiguration($config['health'], $container);
         $this->processInfoConfiguration($config['info'], $container);
+
     }
 
     /**
@@ -48,6 +50,7 @@ final class SymSensorActuatorExtension extends Extension
         if (!$this->isConfigEnabled($container, $config)) {
             $enabled = false;
         }
+        
         $container->setParameter('sym_sensor_actuator.health.enabled', $enabled);
 
         if (\is_array($config['builtin']) && \is_array($config['builtin']['disk_space'])) {

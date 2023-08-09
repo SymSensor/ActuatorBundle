@@ -15,11 +15,7 @@ namespace SymSensor\ActuatorBundle\Service\Health;
 
 final class Health implements HealthInterface
 {
-    public const UP = 'UP';
-    public const DOWN = 'DOWN';
-    public const UNKNOWN = 'UNKNOWN';
-
-    private string $status;
+    private HealthState $status;
 
     /**
      * @var array<string, mixed>
@@ -31,7 +27,7 @@ final class Health implements HealthInterface
     /**
      * @param array<string, mixed> $details
      */
-    public function __construct(string $status, array $details = [], ?string $error = null)
+    public function __construct(HealthState $status, array $details = [], ?string $error = null)
     {
         $this->status = $status;
         $this->details = $details;
@@ -43,27 +39,27 @@ final class Health implements HealthInterface
      */
     public static function up(array $details = []): self
     {
-        return new self(self::UP, $details);
+        return new self(HealthState::UP, $details);
     }
 
     public static function down(?string $error = null): self
     {
-        return new self(self::DOWN, [], $error);
+        return new self(HealthState::DOWN, [], $error);
     }
 
     public static function unknown(?string $error = null): self
     {
-        return new self(self::UNKNOWN, [], $error);
+        return new self(HealthState::UNKNOWN, [], $error);
     }
 
-    public function getStatus(): string
+    public function getStatus(): HealthState
     {
         return $this->status;
     }
 
     public function isUp(): bool
     {
-        return self::UP === $this->status;
+        return HealthState::UP === $this->status;
     }
 
     /**
@@ -101,7 +97,7 @@ final class Health implements HealthInterface
      */
     public function jsonSerialize(): array
     {
-        $serialized = ['status' => $this->status];
+        $serialized = ['status' => $this->status->name];
 
         if (\count($this->details) > 0) {
             $serialized['details'] = $this->details;

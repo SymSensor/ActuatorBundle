@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace SymSensor\ActuatorBundle\Service\Health;
 
-interface HealthInterface extends \JsonSerializable
+enum HealthState : string
 {
-    public function getStatus(): HealthState;
-
-    public function isUp(): bool;
+    case UP = 'UP';
+    case DOWN = 'DOWN';
+    case UNKNOWN = 'UNKNOWN';
 }

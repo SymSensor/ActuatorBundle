@@ -28,15 +28,15 @@ final class HealthStack implements HealthInterface
         $this->healthList = $healthList;
     }
 
-    public function getStatus(): string
+    public function getStatus(): HealthState
     {
-        $status = Health::UP;
+        $status = HealthState::UP;
         foreach ($this->healthList as $health) {
             $currentKey = \array_search($status, $this->defaultOrder(), true);
             $key = \array_search($health->getStatus(), $this->defaultOrder(), true);
 
             if (false === $key) {
-                $status = Health::UNKNOWN;
+                $status = HealthState::UNKNOWN;
             }
             if ($currentKey > $key) {
                 $status = $this->defaultOrder()[$key];
@@ -48,7 +48,7 @@ final class HealthStack implements HealthInterface
 
     public function isUp(): bool
     {
-        return Health::UP === $this->getStatus();
+        return HealthState::UP === $this->getStatus();
     }
 
     /**
@@ -65,9 +65,9 @@ final class HealthStack implements HealthInterface
     private function defaultOrder(): array
     {
         return [
-            Health::UNKNOWN,
-            Health::DOWN,
-            Health::UP,
+            HealthState::UNKNOWN,
+            HealthState::DOWN,
+            HealthState::UP,
         ];
     }
 }
