@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace SymSensor\ActuatorBundle\Service\Health;
 
-enum HealthState : string
+enum HealthState: string
 {
     case UP = 'UP';
     case DOWN = 'DOWN';

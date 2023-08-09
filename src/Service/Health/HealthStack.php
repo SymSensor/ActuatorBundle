@@ -32,14 +32,12 @@ final class HealthStack implements HealthInterface
     {
         $status = HealthState::UP;
         foreach ($this->healthList as $health) {
-            $currentKey = \array_search($status, $this->defaultOrder(), true);
-            $key = \array_search($health->getStatus(), $this->defaultOrder(), true);
-
-            if (false === $key) {
-                $status = HealthState::UNKNOWN;
-            }
-            if ($currentKey > $key) {
-                $status = $this->defaultOrder()[$key];
+            switch ($health->getStatus()) {
+                case HealthState::UNKNOWN:
+                    $status = HealthState::UNKNOWN;
+                    break;
+                case HealthState::DOWN:
+                    return HealthState::DOWN;
             }
         }
 
@@ -57,17 +55,5 @@ final class HealthStack implements HealthInterface
     public function jsonSerialize(): array
     {
         return \array_merge(['status' => $this->getStatus()], $this->healthList);
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function defaultOrder(): array
-    {
-        return [
-            HealthState::UNKNOWN,
-            HealthState::DOWN,
-            HealthState::UP,
-        ];
     }
 }

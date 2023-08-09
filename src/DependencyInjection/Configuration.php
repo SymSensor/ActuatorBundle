@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        var_dump('tet');
+        \var_dump('tet');
         $treeBuilder = new TreeBuilder('sym_sensor_actuator');
 
         $rootNode = $treeBuilder->getRootNode();

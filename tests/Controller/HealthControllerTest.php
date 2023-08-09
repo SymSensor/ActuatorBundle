@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace SymSensor\ActuatorBundle\Tests\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use SymSensor\ActuatorBundle\Service\Health\Health;
+use SymSensor\ActuatorBundle\Service\Health\HealthState;
 
 class HealthControllerTest extends ControllerTestCase
 {
@@ -46,6 +46,6 @@ class HealthControllerTest extends ControllerTestCase
         $response = \json_decode((string) $response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
         self::assertIsArray($response);
         self::assertArrayHasKey('status', $response);
-        self::assertEquals(Health::UP, $response['status']);
+        self::assertEquals(HealthState::UP, $response['status']);
     }
 }

@@ -15,6 +15,7 @@ namespace SymSensor\ActuatorBundle\Tests\Service\Health\Indicator;
 
 use PHPUnit\Framework\TestCase;
 use SymSensor\ActuatorBundle\Service\Health\Health;
+use SymSensor\ActuatorBundle\Service\Health\HealthState;
 use SymSensor\ActuatorBundle\Service\Health\Indicator\DiskSpace;
 
 class DiskSpaceTest extends TestCase
@@ -47,7 +48,7 @@ class DiskSpaceTest extends TestCase
         $health = $diskSpaceHealthIndicator->health();
 
         // then
-        self::assertEquals(Health::UNKNOWN, $health->getStatus());
+        self::assertEquals(HealthState::UNKNOWN, $health->getStatus());
     }
 
     /**
@@ -66,7 +67,7 @@ class DiskSpaceTest extends TestCase
 
         // then
         self::assertInstanceOf(Health::class, $health);
-        self::assertEquals(Health::DOWN, $health->getStatus());
+        self::assertEquals(HealthState::DOWN, $health->getStatus());
 
         self::assertArrayHasKey('disk_free_space', $health->getDetails());
         self::assertEquals(\disk_free_space(\sys_get_temp_dir()), $health->getDetails()['disk_free_space']);
@@ -91,7 +92,7 @@ class DiskSpaceTest extends TestCase
 
         // then
         self::assertInstanceOf(Health::class, $health);
-        self::assertEquals(Health::UP, $health->getStatus());
+        self::assertEquals(HealthState::UP, $health->getStatus());
 
         self::assertArrayHasKey('disk_free_space', $health->getDetails());
         self::assertEquals(\disk_free_space(\sys_get_temp_dir()), $health->getDetails()['disk_free_space']);

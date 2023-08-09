@@ -16,6 +16,7 @@ namespace SymSensor\ActuatorBundle\Tests\Service\Health;
 use PHPUnit\Framework\TestCase;
 use SymSensor\ActuatorBundle\Service\Health\Health;
 use SymSensor\ActuatorBundle\Service\Health\HealthIndicatorStack;
+use SymSensor\ActuatorBundle\Service\Health\HealthState;
 use SymSensor\ActuatorBundle\Service\Health\Indicator\HealthIndicator;
 
 class HealthIndicatorStackTest extends TestCase
@@ -40,7 +41,7 @@ class HealthIndicatorStackTest extends TestCase
 
         // then
         self::assertArrayHasKey('status', $response);
-        self::assertEquals(Health::UP, $response['status']);
+        self::assertEquals(HealthState::UP, $response['status']);
     }
 
     /**
@@ -63,7 +64,7 @@ class HealthIndicatorStackTest extends TestCase
 
         // then
         self::assertArrayHasKey('status', $response);
-        self::assertEquals(Health::DOWN, $response['status']);
+        self::assertEquals(HealthState::DOWN, $response['status']);
     }
 
     /**
@@ -87,6 +88,6 @@ class HealthIndicatorStackTest extends TestCase
 
         // then
         self::assertArrayHasKey('status', $response);
-        self::assertEquals(Health::UNKNOWN, $response['status']);
+        self::assertEquals(HealthState::UNKNOWN, $response['status']);
     }
 }

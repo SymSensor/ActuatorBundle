@@ -15,7 +15,6 @@ namespace SymSensor\ActuatorBundle;
 
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use SymSensor\ActuatorBundle\DependencyInjection\SymSensorActuatorExtension;
 
 final class SymSensorActuatorBundle extends AbstractBundle
@@ -23,6 +22,5 @@ final class SymSensorActuatorBundle extends AbstractBundle
     public function getContainerExtension(): ?ExtensionInterface
     {
         return new SymSensorActuatorExtension();
-    }        
-
+    }
 }
