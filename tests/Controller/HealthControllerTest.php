@@ -46,6 +46,6 @@ class HealthControllerTest extends ControllerTestCase
         $response = \json_decode((string) $response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
         self::assertIsArray($response);
         self::assertArrayHasKey('status', $response);
-        self::assertEquals(HealthState::UP, $response['status']);
+        self::assertEquals(HealthState::UP->value, $response['status']);
     }
 }
