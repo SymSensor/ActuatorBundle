@@ -70,7 +70,7 @@ You should secure the two endpoints with the builtin [Security](https://symfony.
 The Bundle can be configured with a configuration file named `config/packages/sym_sensor_actuator.yaml`. Following snippet shows the default value for all configurations:
 
 ```yaml
-actuator:
+sym_sensor_actuator:
   health:
     enabled: true
     builtin:
@@ -93,14 +93,14 @@ Following table outlines the configuration:
 
 | key                                   | default                | description                                                                   |
 | ------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
-| actuator.health.enabled               | true                   | if the health endpoint should be enabled                                      |
-| actuator.health.disk_space.enabled    | true                   | if the builtin disk_space health endpoint should be enabled                   |
-| actuator.health.disk_space.threshold  | 52428800               | Size in bytes which has to be free in order that this health endpoint is "UP" |
-| actuator.health.disk_space.path       | '%kernel.project_dir%' | The directory which should be monitored                                       |
-| actuator.info.enabled                 | true                   | if the info endpoint should be enabled                                        |
-| actuator.info.builtin.php.enabled     | true                   | if the php info endpoint should be enabled                                    |
-| actuator.info.builtin.symfony.enabled | true                   | if the symfony info endpoint should be enabled                                |
-| actuator.info.builtin.git.enabled     | true                   | if the git info endpoint should be enabled                                    |
+| sym_sensor_actuator.health.enabled               | true                   | if the health endpoint should be enabled                                      |
+| sym_sensor_actuator.health.disk_space.enabled    | true                   | if the builtin disk_space health endpoint should be enabled                   |
+| sym_sensor_actuator.health.disk_space.threshold  | 52428800               | Size in bytes which has to be free in order that this health endpoint is "UP" |
+| sym_sensor_actuator.health.disk_space.path       | '%kernel.project_dir%' | The directory which should be monitored                                       |
+| sym_sensor_actuator.info.enabled                 | true                   | if the info endpoint should be enabled                                        |
+| sym_sensor_actuator.info.builtin.php.enabled     | true                   | if the php info endpoint should be enabled                                    |
+| sym_sensor_actuator.info.builtin.symfony.enabled | true                   | if the symfony info endpoint should be enabled                                |
+| sym_sensor_actuator.info.builtin.git.enabled     | true                   | if the git info endpoint should be enabled                                    |
 
 
 ## Extending

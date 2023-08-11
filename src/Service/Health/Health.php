@@ -42,14 +42,20 @@ final class Health implements HealthInterface
         return new self(HealthState::UP, $details);
     }
 
-    public static function down(?string $error = null): self
+    /**
+     * @param array<string, mixed> $details
+     */
+    public static function down(?string $error = null, array $details = []): self
     {
-        return new self(HealthState::DOWN, [], $error);
+        return new self(HealthState::DOWN, $details, $error);
     }
 
-    public static function unknown(?string $error = null): self
+    /**
+     * @param array<string, mixed> $details
+     */
+    public static function unknown(?string $error = null, array $details = []): self
     {
-        return new self(HealthState::UNKNOWN, [], $error);
+        return new self(HealthState::UNKNOWN, $details, $error);
     }
 
     public function getStatus(): HealthState
