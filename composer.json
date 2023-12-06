@@ -5,7 +5,7 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "require": {
-        "symfony/framework-bundle": "^6.0"
+        "symfony/framework-bundle": "^6.0 || ^7.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.22",
