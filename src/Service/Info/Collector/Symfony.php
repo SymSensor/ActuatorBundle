@@ -35,7 +35,7 @@ class Symfony implements Collector
             'environment' => $this->kernel->getEnvironment(),
             'endOfMaintenance' => \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE),
             'endOfLife' => \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE),
-            'bundles' => \array_map(fn(BundleInterface $bundle): string => $bundle::class, $this->kernel->getBundles()),
+            'bundles' => \array_map(static fn(BundleInterface $bundle): string => $bundle::class, $this->kernel->getBundles()),
         ]);
     }
 }
