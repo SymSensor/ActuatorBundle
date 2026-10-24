@@ -5,22 +5,40 @@ on:
     pull_request:
 
 jobs:
-    test:
+    matrix:
         runs-on: ubuntu-latest
-        name: PHPUnit Tests
+        name: Resolve maintained Symfony versions
+        outputs:
+            matrix: ${{ steps.matrix.outputs.matrix }}
+        steps:
+            -   name: Build matrix from symfony.com/releases.json
+                id: matrix
+                shell: python
+                run: |
+                    import json, os, urllib.request
+
+                    request = urllib.request.Request('https://symfony.com/releases.json', headers={'User-Agent': 'symsensor-ci'})
+                    data = json.load(urllib.request.urlopen(request))
+                    key = lambda v: tuple(int(p) for p in v.split('.'))
+                    latest = key(data['latest_stable_version'])[:2]
+                    # skip maintained branches without a stable release yet (e.g. the upcoming minor)
+                    versions = [v for v in data['maintained_versions'] if key(v) <= latest]
+                    include = []
+                    for version in versions:
+                        min_php = '.'.join(data['min_php_requirements'][version].split('.')[:2])
+                        for php in sorted({min_php, '8.4'}, key=key):
+                            if key(php) >= key(min_php):
+                                include.append({'symfony': version, 'php': php})
+                    with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+                        out.write('matrix=' + json.dumps({'include': include}) + '\n')
+
+    test:
+        needs: matrix
+        runs-on: ubuntu-latest
+        name: PHPUnit Tests (PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }})
         strategy:
             fail-fast: false
-            matrix:
-                php: [ '8.1', '8.2' ]
-                symfony: [ '6.3', '6.4', '7.0' ]
-                exclude:
-                    - php: '8.1'
-                      symfony: '7.0'
-                include:
-                    - php: '8.4'
-                      symfony: '8.0'
-                    - php: '8.4'
-                      symfony: '8.1'
+            matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
         steps:
             -   name: Checkout
                 uses: actions/checkout@v3
